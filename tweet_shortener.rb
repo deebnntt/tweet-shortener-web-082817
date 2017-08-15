@@ -17,20 +17,17 @@ def dictionary
 end
 
 def word_substituter(tweet)
-
-long_tweet = tweet.split()
-short_tweet = []
-
-  long_tweet.each do |word|
-    short_tweet << (dictionary[word.downcase] ? dictionary[word.downcase] : word)
-
-  end
-    short_tweet.join(' ')
+  tweet.split.collect do |word|
+    if dictionary.keys.include?(word.downcase)
+      word = dictionary[word.downcase]
+    else
+      word
+    end
+  end.join(" ")
 end
 
 
 def bulk_tweet_shortener(tweets)
-
   tweets.each do |tweet|
     tweet = word_substituter(tweet)
     puts "#{tweet}"
